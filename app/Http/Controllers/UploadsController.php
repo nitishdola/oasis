@@ -9,6 +9,10 @@ use Validator;
 class UploadsController extends Controller
 {
 
+    public function uploadVideo1() {
+        return view('videos.episode.test');
+    }
+
     public function uploadVideo() {
         return view('uploads.upload_video');
     }
@@ -26,9 +30,6 @@ class UploadsController extends Controller
             'name' => 'OASIS TEST VIDEO',
             'description' => 'Direct Upload',
         ]);
-
-
-
-        dd($uri);
+        return response()->json($uri);
     }
 }
