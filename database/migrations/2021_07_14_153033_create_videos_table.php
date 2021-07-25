@@ -16,13 +16,13 @@ class CreateVideosTable extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->bigInteger('episode_id')->unsigned();
             $table->string('thumbnail')->nullable();
             $table->string('video_url')->nullable();
             $table->string('trailer_url')->nullable();
             $table->string('video_id')->nullable();
-            $table->integer('total_hits')->default(0);
+            $table->integer('total_hits')->nullable()->default(0);
             $table->softDeletes();
             $table->longText('details')->nullable();
             $table->boolean('status')->nullable()->default(0);
