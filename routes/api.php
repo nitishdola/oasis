@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['prefix' => 'open'], function () {
+    Route::get('/get-all-categories', [App\Http\Controllers\REST\ApiController::class, 'getAllCategories']);
+    Route::get('/get-all-series', [App\Http\Controllers\REST\ApiController::class, 'getAllSeries']);
+    Route::get('/get-all-videos', [App\Http\Controllers\REST\ApiController::class, 'getAllVideos']);
+});
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -96,6 +96,7 @@ class VideoController extends Controller
                     $full_path = "public/images/".date('d-m-Y')."/".$fileNameToStore;
                 }
                 $data['name'] = $request->name;
+                $data['order_list'] = $request->order_list;
                 $data['thumbnail'] = $full_path;
                 $data['details'] = $request->details;
                 $data['price'] = $request->price;
@@ -104,7 +105,9 @@ class VideoController extends Controller
                 $data['video_url'] = env("API_URL")."/videos/".$video->video_id;
                 Videos::where('id',$request->id)->update($data);
                 Session::flash('success','Updated successfully');
-                return Redirect::back();
+
+                $episode_uuid = Episode::whereId($video->episode_id)->first()->uuid;
+                return Redirect::route('videos.episode.list', $episode_uuid);
            
             }
             catch(\Exception $e){

@@ -31,8 +31,10 @@
          <!-- Page-body start -->
          <div class="page-body">
             <div class="row">
-                
-                        @include('layouts.include.alert')
+                        <div class="col-md-12">
+                           @include('layouts.include.alert')
+                        </div>
+                        
                         @forelse($videos as $key=>$video)
                         <div class="col-md-4">
                             <div class="card">

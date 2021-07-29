@@ -102,7 +102,6 @@
    });
    
 </script>
-<script src="{{asset('node_modules/vimeo-upload/vimeo-upload.js')}}"></script>
 <script>
 
     
@@ -121,7 +120,8 @@
          file: files[0],
          token: "{{env('VIMEO_ACCESS')}}",
          beforeSend: function (req) {
-            req.setRequestHeader('Accept', 'application/vnd.vimeo.*+json;version=3.2');
+            //req.setRequestHeader('Accept', 'application/vnd.vimeo.*+json;version=3.4');
+            
             $.blockUI({
                                 css: {
                                     backgroundColor: 'transparent',

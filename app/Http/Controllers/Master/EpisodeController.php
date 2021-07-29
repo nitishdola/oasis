@@ -77,7 +77,7 @@ class EpisodeController extends Controller
                $data['details'] = $request->details;
                $data['release_date'] = $request->release_date;
                Episode::create($data);
-               Session::flash('success','Episode added successfully');
+               Session::flash('success','Series added successfully');
                return Redirect::back();
         }
         catch(\Exception $e){

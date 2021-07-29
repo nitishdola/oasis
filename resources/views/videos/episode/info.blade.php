@@ -62,6 +62,15 @@
                               <span class="form-bar"></span>
                               <label class="float-label">Name <span class="req">*</span></label>
                            </div>
+
+
+                           <div class="form-group form-default">
+                              <input type="number" name="order_list" class="form-control" required >
+                              <span class="form-bar"></span>
+                              <label class="float-label">Episode Number <span class="req">*</span></label>
+                           </div>
+
+
                            <input type="hidden" name="id" value="{{$video->id}}">
                            <div class="form-group form-default">
                              

@@ -16,4 +16,8 @@ class Videos extends Model
     {
         return 'uuid';
     }
+
+    public function episode(){
+        return $this->belongsTo("App\Models\Master\Episode");
+    }
 }
