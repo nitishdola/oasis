@@ -19,8 +19,11 @@
     <!-- Favicon icon -->
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <!-- Google font-->
+    @toastr_css
     @include('layouts.include.css')
+    
     @yield('css')
+
 </head>
 
 <body>
@@ -38,8 +41,10 @@
         </div>
     </div>
     
+    @toastr_js
     @include('layouts.include.script')
     @yield('js')
+
 </body>
 
 </html>
