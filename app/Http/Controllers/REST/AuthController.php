@@ -59,7 +59,7 @@ class AuthController extends Controller
 
                 DB::commit();
                 Helper::sendSMS($request->username,$otp);
-                return response()->json(['success'=>true,'msg'=>'OTP sent succesfully','customer_details'=>$user->username]);
+                return response()->json(['success'=>true,'msg'=>'OTP sent succesfully','user_details'=>$user->username]);
             }
         catch (\Exception $e) {
                 DB::rollback();
@@ -68,9 +68,9 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        //
+        
             $validator = Validator::make($request->all(), [
-                //'username'      => 'required|numeric',
+                'username'      => 'required|numeric',
                 'password'      => 'required',
                 'fcm_token'     => 'string'
             ]);
@@ -87,6 +87,7 @@ class AuthController extends Controller
 
                 if (!Auth::attempt($request->only('username', 'password'))) {
                     return response()->json([
+                        'success' => false,
                     'message' => 'Invalid login details'
                                ], 401);
                            }
@@ -95,10 +96,10 @@ class AuthController extends Controller
 
                 $token = $user->createToken('auth_token')->plainTextToken;
 
-                return response()->json([
+                /*return response()->json([
                            'access_token' => $token,
                            'token_type' => 'Bearer',
-                ]);
+                ]);*/
             } catch (Exception $error) {
                 return response()->json(
                     [
@@ -109,13 +110,13 @@ class AuthController extends Controller
             }
 
             try{
-                Employee::where('id',auth('employee')->user()->id)->update(['fcm_token'=>$request->fcm_token]);
+                User::where('id',auth()->user()->id)->update(['fcm_token'=>$request->fcm_token]);
             }
             catch (Exception $e) {
                 // something went wrong whilst attempting to encode the token
                 return response()->json(['success' => false, 'error' => $e->getMessage()]);
             }
-            $user_details = User::select('id','name','username')->where(auth()->user()->id)->first();
+            $user_details = User::select('id','name','username')->where('id', auth()->user()->id)->first();
             
             return response()->json(['success' => true, 'token' => $token, 'user_details' => $user_details]);
 
@@ -210,6 +211,23 @@ class AuthController extends Controller
             return response()->json(['success'=>false,'error'=>'Phone no does not exist']);
         }
 
+    }
+
+
+    public function logout(Request $request) {
+        $tokenId = $request->token;
+
+        
+
+        try{
+            $user = User::where('username',$request->username)->first();
+            $user->tokens()->where('id', $tokenId)->delete();
+            return response()->json(['success' => true]);
+        }
+        catch (Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
+        
     }
 
 
