@@ -27,7 +27,7 @@ Route::post('/validate-otp', [AuthController::class, 'otp_verify']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/get-user-details', [AuthController::class, 'getUserDetails']);
-    Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 
