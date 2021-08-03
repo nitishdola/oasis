@@ -216,18 +216,36 @@ class AuthController extends Controller
 
     public function logout(Request $request) {
         $tokenId = $request->token;
-
-        
-
         try{
-            $user = User::where('username',$request->username)->first();
-            $user->tokens()->where('id', $tokenId)->delete();
+            /*$user = User::where('username',$request->username)->first();
+            $user->tokens()->where('id', $tokenId)->delete();*/
+
+            auth()->user()->tokens()->delete();
+
             return response()->json(['success' => true]);
         }
         catch (Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
         
+    }
+
+
+    public function getUserDetails(Request $request) {
+        try{
+
+            if(auth()->user()) {
+                return response()->json(['success' => true, 'data' => auth()->user()]);
+            }else{
+                return response()->json(['success' => false]);
+            }
+            
+
+            
+        }
+        catch (Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
     }
 
 

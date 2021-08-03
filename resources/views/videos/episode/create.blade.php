@@ -119,6 +119,7 @@
      var uploader = new VimeoUpload({
          file: files[0],
          token: "{{env('VIMEO_ACCESS')}}",
+
          beforeSend: function (req) {
             //req.setRequestHeader('Accept', 'application/vnd.vimeo.*+json;version=3.4');
             
@@ -174,6 +175,7 @@
             $.ajax({
                         type: 'GET',
                         url: '{{route("videos.episode.store")}}',
+                        name: "NitishD",
                         data: {video_id:e,episode_id:{{$episode->id}}},
                         dataType:'json',
                         beforeSend: function(){
